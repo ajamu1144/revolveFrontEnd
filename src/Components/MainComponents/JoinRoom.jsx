@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../Config/axios.config.js";
 import Loader from "../SubComponents/Loader.jsx";
 
 const JoinRoom = () => {
@@ -17,7 +17,7 @@ const JoinRoom = () => {
         e.preventDefault();
         setError("");
         try {
-            const res = await axios.post("http://localhost:3000/rooms/join", {
+            const res = await axios.post("/rooms/join", {
                 roomName,
                 password,
             });

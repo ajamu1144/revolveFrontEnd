@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../../Config/axios.config.js";
 
 const ChatRoom = () => {
     const { roomId } = useParams();
@@ -18,7 +18,7 @@ const ChatRoom = () => {
 
     const fetchRoomInfo = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/rooms/${roomId}`);
+            const res = await axios.get(`/rooms/${roomId}`);
             setRoomInfo(res.data);
         } catch (err) {
             console.error("Error fetching room info:", err);
@@ -27,7 +27,7 @@ const ChatRoom = () => {
 
     const fetchMessages = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/rooms/${roomId}/messages`);
+            const res = await axios.get(`/rooms/${roomId}/messages`);
             setMessages(res.data.reverse());
             setLoading(false);
         } catch (err) {
@@ -40,7 +40,7 @@ const ChatRoom = () => {
         if (!newMessage.trim()) return;
 
         try {
-            await axios.post(`http://localhost:3000/rooms/${roomId}/chats`, {
+            await axios.post(`/rooms/${roomId}/chats`, {
                 message: newMessage,
             });
             setNewMessage("");

@@ -70,7 +70,7 @@ const CreateForm = () => {
         if (hasError) return;
 
         try {
-            const res = await axios.post("http://localhost:3000/addRoom", {
+            const res = await axios.post("/addRoom", {
                 roomName,
                 password,
             });
@@ -166,7 +166,7 @@ const CreateForm = () => {
           peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
           peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
-                        Password
+                        Password <sup><b>Remember your password</b></sup>
                     </label>
                     <FaEye
                         className="absolute right-3 top-3 cursor-pointer text-gray-500 dark:text-white"
