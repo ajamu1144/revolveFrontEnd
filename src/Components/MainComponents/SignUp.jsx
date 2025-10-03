@@ -18,7 +18,7 @@ const SignUp = () => {
                 >
                     Welcome to revolve
                 </motion.h1> <br/>
-                <p className='text-white opacity-40 text-center'>Here you can create rooms for you and your friends, join rooms and chat anonymously</p>
+                <p className='dark:text-white  opacity-40 text-center'>Here you can create rooms for you and your friends, join rooms and chat anonymously</p>
             </div>
             <div className='flex flex-wrap justify-center gap-10 mt-10'>
                 <ActionCard text='Be the host of an anominous room, chat, remove chats, remove members and much more' heading='Create a room' image={createImage} link='/create'/>

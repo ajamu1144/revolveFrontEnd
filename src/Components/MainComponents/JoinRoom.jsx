@@ -16,6 +16,7 @@ const JoinRoom = () => {
     const handleJoin = async (e) => {
         e.preventDefault();
         setError("");
+        setLoading(true);
         try {
             const res = await axios.post("/rooms/join", {
                 roomName,
@@ -23,8 +24,7 @@ const JoinRoom = () => {
             });
 
             setJoinedRoom(res.data.room);
-
-            // ✅ Remember last room
+            setLoading(false);
             localStorage.setItem("lastRoom", res.data.room._id);
 
             navigate(`/room/${res.data.room._id}`);
@@ -34,6 +34,9 @@ const JoinRoom = () => {
             } else {
                 setError("Server error");
             }
+        }
+        finally {
+            setLoading(false)
         }
     };
 
@@ -45,7 +48,6 @@ const JoinRoom = () => {
                 <Loader/>
             }
             <form onSubmit={handleJoin} className="max-w-md mx-auto">
-                {/* Room Name */}
                 <div className="relative z-0 w-full mb-5 group">
                     <input
                         type="text"
