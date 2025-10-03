@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import logo from "../assets/castify.png";
+import logo from "../../../public/logo.png";
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -12,17 +12,16 @@ const Header = () => {
                 <p
                     className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
-                    {/*<img*/}
-                    {/*    // src={}*/}
-                    {/*    className="h-8 rounded-full"*/}
-                    {/*    alt="Flowbite Logo"*/}
-                    {/*/>*/}
+                    <img
+                        src={logo}
+                        className="h-8 rounded-full"
+                        alt="Flowbite Logo"
+                    />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Revolve
           </span>
                 </p>
 
-                {/* Mobile menu button */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
                     type="button"

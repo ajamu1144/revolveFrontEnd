@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {FaEye} from "react-icons/fa";
-import axios from "axios";
+import axios from "../../Config/axios.config.js";
 import {useNavigate} from "react-router-dom";
 import DuplicateRoomError from "./DuplicateRoomError.jsx";
 import Loader from './Loader.jsx'
