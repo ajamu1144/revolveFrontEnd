@@ -85,7 +85,6 @@ const CreateForm = () => {
             setRoomCreated(true)
             console.log(roomCreated)
             navigate(`/room/${res.data._id}`);
-
         } catch (err) {
             console.log(err);
             if (err.response.status === 409) {

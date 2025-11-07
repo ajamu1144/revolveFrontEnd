@@ -6,18 +6,20 @@ import Create from "./Components/MainComponents/Create.jsx";
 import JoinRoom from "./Components/MainComponents/JoinRoom.jsx";
 import ChatRoom from "./Components/MainComponents/ChatRoom.jsx";
 import Layout from "./Components/MainComponents/Layout.jsx";
+import Admin from "./Components/MainComponents/Admin.jsx";
+import AdminLogin from "./Components/MainComponents/AdminLogin.jsx";
+import NotFound from "./Components/SubComponents/NotFound.jsx";
 
 function App() {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        const lastRoom = localStorage.getItem("lastRoom");
-        // ✅ Only redirect if we are at "/"
-        if (lastRoom && location.pathname === "/") {
-            navigate(`/room/${lastRoom}`);
-        }
-    }, [navigate, location]);
+    // const navigate = useNavigate();
+    // const location = useLocation();
+    //
+    // useEffect(() => {
+    //     const lastRoom = localStorage.getItem("lastRoom");
+    //     if (lastRoom && location.pathname === "/") {
+    //         navigate(`/room/${lastRoom}`);
+    //     }
+    // }, [navigate, location]);
 
     return (
         <Routes>
@@ -26,6 +28,9 @@ function App() {
                 <Route path="/create" element={<Create/>}/>
                 <Route path="/join" element={<JoinRoom/>}/>
                 <Route path="/room/:roomId" element={<ChatRoom />} />
+                <Route path='/adminPage' element={<Admin/>}/>
+                <Route path='/adminLogin' element={<AdminLogin/>}/>
+                <Route path='/*' element={<NotFound/>}/>
             </Route>
         </Routes>
     )

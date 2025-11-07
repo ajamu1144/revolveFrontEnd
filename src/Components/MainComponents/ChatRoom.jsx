@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../Config/axios.config.js";
+import {TiTick} from "react-icons/ti";
+import {CgLock} from "react-icons/cg";
+import {BiTime} from "react-icons/bi";
 
 const ChatRoom = () => {
     const { roomId } = useParams();
@@ -8,11 +11,14 @@ const ChatRoom = () => {
     const [newMessage, setNewMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [roomInfo, setRoomInfo] = useState(null);
+    const [messageLoading, setMessageLoading] = useState(false);
+    const [messageContent, setMessageContent] = useState('');
+
 
     useEffect(() => {
         fetchRoomInfo();
         fetchMessages();
-        const interval = setInterval(fetchMessages, 3000);
+        const interval = setInterval(fetchMessages, 2000);
         return () => clearInterval(interval);
     }, [roomId]);
 
@@ -33,18 +39,23 @@ const ChatRoom = () => {
         } catch (err) {
             console.error("Error fetching messages:", err);
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!newMessage.trim()) return;
-
+        setMessageLoading(true);
+        setMessageContent(newMessage)
         try {
             await axios.post(`/rooms/${roomId}/chats`, {
                 message: newMessage,
             });
             setNewMessage("");
             fetchMessages();
+            setMessageLoading(false);
         } catch (err) {
             console.error("Error sending message:", err);
         }
@@ -72,12 +83,34 @@ const ChatRoom = () => {
                     messages.map((msg, index) => (
                         <div
                             key={index}
-                            className="mb-2 p-2 rounded bg-blue-700/40 w-fit max-w-xs"
+                            className="mb-2 flex items-center gap-5 p-2 rounded bg-blue-700/40 w-fit"
                         >
-                            {msg.message}
+                            <p>
+                                {msg.message}
+                            </p>
+
+                            {/*<TiTick/>*/}
+                            {/*<BiTime/>*/}
                         </div>
                     ))
                 )}
+                {
+                    messageLoading && (
+                        <div
+                            className="flex mb-2 p-2 rounded bg-blue-700/40 w-fit"
+                        >
+                            {messageContent}
+                            {/*{*/}
+                            {/*    messageLoading ? (*/}
+                            <BiTime/>
+                            {/*):*/}
+                            {/*(*/}
+                            <TiTick/>
+                            {/*)*/}
+                            {/*}*/}
+                        </div>
+                    )
+                }
             </div>
 
             {/* Message Input */}
@@ -86,6 +119,7 @@ const ChatRoom = () => {
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+                    maxLength="55"
                     placeholder="Type a message..."
                     className="flex-1 p-2 rounded bg-gray-700 text-white outline-none"
                 />
